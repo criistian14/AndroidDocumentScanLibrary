@@ -8,7 +8,7 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <activity
