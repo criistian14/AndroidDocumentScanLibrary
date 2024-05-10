@@ -68,11 +68,9 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
     }
 
     private void init() {
-         byte[] imageInitial = getIntent().getByteArrayExtra(ScanConstants.INITIAL_IMAGE);
+         String imageInitial = getIntent().getStringExtra(ScanConstants.INITIAL_IMAGE);
         if (imageInitial != null) {
-            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageInitial, 0, imageInitial.length);
-            Uri imageUri = Utils.getUri(this, imageBitmap);
-
+            Uri imageUri = Uri.parse(imageInitial);
             boolean canBackToInitial = getIntent().getBooleanExtra(ScanConstants.CAN_BACK_TO_INITIAL, true);
 
             onBitmapSelect(imageUri, canBackToInitial);
