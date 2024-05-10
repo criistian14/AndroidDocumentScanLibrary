@@ -67,9 +67,11 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
     }
 
     private void init() {
-        Uri imageUri = getIntent().getParcelableExtra(ScanConstants.INITIAL_BITMAP);
-        if (imageUri != null) {
+         Bitmap imageInitial = getIntent().getParcelableExtra(ScanConstants.INITIAL_BITMAP);
+        if (imageInitial != null) {
+            Uri imageUri = Utils.getUri(this, imageInitial);
             boolean canBackToInitial = getIntent().getBooleanExtra(ScanConstants.CAN_BACK_TO_INITIAL, true);
+
             onBitmapSelect(imageUri, canBackToInitial);
             return;
         }
