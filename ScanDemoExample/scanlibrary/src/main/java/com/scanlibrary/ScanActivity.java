@@ -35,7 +35,7 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
         permissions[1] = Manifest.permission.CAMERA;
 
         setContentView(R.layout.scan_layout);
-        if(getActionBar() != null){
+        if (getActionBar() != null) {
             getActionBar().hide();
         }
         checkPermissions();
@@ -67,6 +67,13 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
     }
 
     private void init() {
+        Uri imageUri = getIntent().getParcelableExtra(ScanConstants.INITIAL_BITMAP);
+        if (imageUri != null) {
+            boolean canBackToInitial = getIntent().getBooleanExtra(ScanConstants.CAN_BACK_TO_INITIAL, true);
+            onBitmapSelect(imageUri, canBackToInitial);
+            return;
+        }
+
         PickImageFragment fragment = new PickImageFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ScanConstants.OPEN_INTENT_PREFERENCE, getPreferenceContent());
@@ -84,6 +91,11 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
 
     @Override
     public void onBitmapSelect(Uri uri) {
+        onBitmapSelect(uri, true);
+    }
+
+    @Override
+    public void onBitmapSelect(Uri uri, boolean canBackToInitial) {
         ScanFragment fragment = new ScanFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(ScanConstants.SELECTED_BITMAP, uri);
@@ -91,7 +103,11 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
         android.app.FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.content, fragment);
-        fragmentTransaction.addToBackStack(ScanFragment.class.toString());
+
+        if(canBackToInitial) {
+            fragmentTransaction.addToBackStack(ScanFragment.class.toString());
+        }
+
         fragmentTransaction.commit();
     }
 

@@ -9,5 +9,7 @@ public interface IScanner {
 
     void onBitmapSelect(Uri uri);
 
+    void onBitmapSelect(Uri uri, boolean canBackToInitial);
+
     void onScanFinish(Uri uri);
 }
