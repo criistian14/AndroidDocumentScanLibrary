@@ -17,7 +17,7 @@ public class ScanConstants {
     public final static String IMAGE_PATH = Environment
             .getExternalStorageDirectory().getPath() + "/scanSample";
     public final static String SELECTED_BITMAP = "selectedBitmap";
-    public final static String INITIAL_BITMAP = "initialBitmap";
+    public final static String INITIAL_IMAGE = "initialImage";
     public final static String CAN_BACK_TO_INITIAL = "canBackToInitial";
 
     // For passing dynamic labels

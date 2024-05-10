@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.ComponentCallbacks2;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Build;
@@ -67,9 +68,11 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
     }
 
     private void init() {
-         Bitmap imageInitial = getIntent().getParcelableExtra(ScanConstants.INITIAL_BITMAP);
+         byte[] imageInitial = getIntent().getByteArrayExtra(ScanConstants.INITIAL_IMAGE);
         if (imageInitial != null) {
-            Uri imageUri = Utils.getUri(this, imageInitial);
+            Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageInitial, 0, imageInitial.length);
+            Uri imageUri = Utils.getUri(this, imageBitmap);
+
             boolean canBackToInitial = getIntent().getBooleanExtra(ScanConstants.CAN_BACK_TO_INITIAL, true);
 
             onBitmapSelect(imageUri, canBackToInitial);
